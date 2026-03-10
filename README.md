@@ -44,3 +44,11 @@ Part 2 of your project will be submitted via GitHub and the link to your reposit
 
 **Pledged Work Policy** 
 You may only seek aid from the course professor or explicitly specified assistants. Tutors are not permitted. You may discuss only basic C/C++ syntax with others. Any other discussions of the project are strictly prohibited.Your code and implementation must be the product of your own work.
+
+**Analysis** 
+
+I wanted to use a tiling approach similar to the matrix multiplication algorithm. After all, to process one pixel's blur you need to read 33x33 = 1089 elements, but to process 4 (next to each other in a 2x2 tile) you only need 34x34-33x33 = 67 more. These savings only grow the bigger tiles you use, so I tried to get them about as big as I could (calculating how many uchar3s could fit into shared memory, with some wiggle room.) That gives me the size of the surrounding tile I use to read from, but then this can only serve the tiles in the middle. So, these surrounding tiles must overlap a bit as they surround all the inner tile regeions, which fill the grid. This means some efficiency savings are lost, but such is life. 
+
+This approach ends up working quite well. For small images, it's harder to tell a difference, but for larger images you can really tell -- at large image sizes my algorithm runs ~2x faster. 
+
+![Analysis image](image.png)
