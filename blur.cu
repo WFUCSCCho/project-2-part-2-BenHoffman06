@@ -123,7 +123,7 @@ void print_timing_results(const char *filename, int size, float execution_time_i
 
     // Print results to opened file
     if (just_created) {
-        fprintf(fptr, "system_size\ttime(s)\n");
+        fprintf(fptr, "image_size\ttime(s)\n");
     }
     fprintf(fptr, "%d\t%f\n", size, execution_time_in_seconds);
     fclose(fptr);
@@ -212,7 +212,7 @@ int main(int argc, char **argv) {
     printf("Execution time in seconds: %f \n", execution_time_in_seconds);
     
     const char *filename = IS_OPTIMIZED ? "optimized.csv" : "original.csv";
-    print_timing_results(filename, BLUR_SIZE, execution_time_in_seconds);
+    print_timing_results(filename, width*height, execution_time_in_seconds);
     
     //Set updated pixels
     for(int x = 0; x < width; x++)
@@ -228,7 +228,7 @@ int main(int argc, char **argv) {
     if (IS_OPTIMIZED) {
         printf("Used optimized version.\n");
     } else {
-        printf("USed unoptimized version.\n");
+        printf("Used unoptimized version.\n");
     }
     
     bmp.save_image("./blurred.bmp");
